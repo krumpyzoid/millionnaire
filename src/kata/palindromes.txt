@@ -1,0 +1,11 @@
+// Extract all palindromes within a sentence
+
+Anna a fait du kayak hier a été flashée par un radar
+=> ["ANNA", "KAYAK", "RADAR"]
+
+Rules :
+Un mot d'une seule lettre n'est PAS un palindrome.
+L'apostrophe ne compte pas pour une lettre.
+
+Contraintes :
+On n'a pas le droit d'utiliser la version "reverse" de string
