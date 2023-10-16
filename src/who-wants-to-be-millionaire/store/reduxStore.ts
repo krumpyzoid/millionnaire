@@ -6,25 +6,34 @@ import {
   ThunkAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
-import { AppState } from "./appState";
+import { AppState, Pyramid } from "./appState";
 import { questionReducer } from "../core-logic/reducers/question.reducer.ts";
 import { validatedAnswerReducer } from "../core-logic/reducers/validatedAnswer.reducer.ts";
 import { QuestionGateway } from "../core-logic/gateways/questionGateway.ts";
+import { pyramidReducer } from "../core-logic/reducers/pyramid.reducer.ts";
 
 export interface Dependencies {
   questionGateway: QuestionGateway;
 }
 
-export const initReduxStore = (dependencies: Partial<Dependencies>) => {
+export const initReduxStore = (options: {
+  pyramidLadder?: Pyramid["ladder"];
+  dependencies?: Dependencies;
+}) => {
+  const mergeOptions = {
+    ...options,
+    pyramidLadder: options.pyramidLadder || [0, 200, 500, 3000],
+  };
   return configureStore({
     reducer: {
       question: questionReducer,
       answerValidation: validatedAnswerReducer,
+      pyramid: pyramidReducer(mergeOptions.pyramidLadder),
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: {
-          extraArgument: dependencies,
+          extraArgument: mergeOptions.dependencies,
         },
       }),
     devTools: true,

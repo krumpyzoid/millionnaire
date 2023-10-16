@@ -20,6 +20,7 @@ questionGateway.question = {
     D: "666",
   },
 };
+questionGateway.correctAnswer = { "1": "A" };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -11,7 +11,7 @@ describe("Answer validation", () => {
 
   beforeEach(() => {
     questionGateway = new QuestionGatewayStub();
-    store = initReduxStore({ questionGateway });
+    store = initReduxStore({ dependencies: { questionGateway } });
     initialState = store.getState();
   });
 
@@ -30,6 +30,7 @@ describe("Answer validation", () => {
     // THEN
     expect(store.getState()).toEqual<AppState>({
       ...initialState,
+      pyramid: store.getState().pyramid,
       answerValidation: {
         correct: "B",
         given: "A",

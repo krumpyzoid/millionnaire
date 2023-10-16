@@ -11,13 +11,13 @@ describe("Question retrieval", () => {
 
   beforeEach(() => {
     questionGateway = new QuestionGatewayStub();
-    store = initReduxStore({ questionGateway });
+    store = initReduxStore({ dependencies: { questionGateway } });
     initialState = store.getState();
   });
 
   it("should retrieve a new question", async () => {
     questionGateway.question = aQuestion;
-    await store.dispatch(retrieveQuestion(questionGateway));
+    await store.dispatch(retrieveQuestion());
     expect(store.getState()).toEqual({
       ...initialState,
       question: aQuestion,
