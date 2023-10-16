@@ -1,4 +1,4 @@
-import { QuestionGateway } from "../gateways/questionGateway.ts";
+import { QuestionGateway } from "../../gateways/questionGateway.ts";
 import { ReduxStore } from "../../../store/reduxStore.ts";
 
 export const retrieveQuestion =

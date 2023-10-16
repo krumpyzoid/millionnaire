@@ -1,5 +1,5 @@
 import { retrieveQuestion } from "./retrieveQuestion.ts";
-import { QuestionGatewayStub } from "../gateways/questionGatewayStub.ts";
+import { QuestionGatewayStub } from "../../../adapters/secondary/gateways/questionGatewayStub.ts";
 import { Question } from "./question.ts";
 import { initReduxStore, ReduxStore } from "../../../store/reduxStore.ts";
 
