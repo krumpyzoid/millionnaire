@@ -1,10 +1,9 @@
 import { AppState } from "../../store/appState.ts";
-import { AnyAction } from "@reduxjs/toolkit";
+import { createReducer } from "@reduxjs/toolkit";
+import { answerValidatedAction } from "../use-cases/answer-validation/validateAnswer.ts";
 
-export const validatedAnswerReducer = (
-  state: AppState["answerValidation"] = null,
-  action: AnyAction,
-) => {
-  if (action.type === "answer/validated") return action.payload;
-  return state;
-};
+export const validatedAnswerReducer = createReducer<
+  AppState["answerValidation"]
+>(null, (builder) => {
+  builder.addCase(answerValidatedAction, (_, action) => action.payload);
+});

@@ -1,5 +1,9 @@
 import { AppThunk, ReduxStore } from "../../../store/reduxStore.ts";
 import { QuestionGateway } from "../../gateways/questionGateway.ts";
+import { createAction } from "@reduxjs/toolkit";
+import { Question } from "./question.ts";
+
+export const retrievedQuestion = createAction<Question>("question/retrieved");
 
 export const retrieveQuestion =
   (): AppThunk<Promise<void>> =>
@@ -12,8 +16,5 @@ export const retrieveQuestion =
       questionGateway: QuestionGateway;
     },
   ) => {
-    dispatch({
-      type: "question/retrieved",
-      payload: await questionGateway.load(),
-    });
+    dispatch(retrievedQuestion(await questionGateway.load()));
   };
