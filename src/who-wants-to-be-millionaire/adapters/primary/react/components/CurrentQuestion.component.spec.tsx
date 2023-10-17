@@ -1,4 +1,3 @@
-import React from "react";
 import { CurrentQuestion } from "./CurrentQuestion.component.tsx";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
