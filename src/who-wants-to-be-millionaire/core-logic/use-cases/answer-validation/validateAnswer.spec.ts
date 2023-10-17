@@ -1,5 +1,5 @@
 import { initReduxStore, ReduxStore } from "../../../store/reduxStore.ts";
-import { validateAnswer } from "./validateAnswer.ts";
+import { answerValidatedAction, validateAnswer } from "./validateAnswer.ts";
 import { AppState, Question } from "../../../store/appState.ts";
 import { QuestionGatewayStub } from "../../../adapters/secondary/gateways/questionGatewayStub.ts";
 import { retrievedQuestionAction } from "../question-retrieval/retrieveQuestion.ts";
@@ -33,6 +33,19 @@ describe("Answer validation", () => {
         given: "A",
       },
     });
+  });
+
+  it("should not validate a same question more than once", () => {
+    store.dispatch(answerValidatedAction({ given: "A", correct: "B" }));
+    initialState = store.getState();
+    store.dispatch(validateAnswer("A"));
+    expect(store.getState()).toEqual(initialState);
+  });
+
+  it("should reset the old validation when a next question is retrieved", () => {
+    store.dispatch(answerValidatedAction({ given: "A", correct: "A" }));
+    store.dispatch(retrievedQuestionAction(aQuestion));
+    expect(store.getState().answerValidation).toEqual(null);
   });
 
   const aQuestion: Question = {

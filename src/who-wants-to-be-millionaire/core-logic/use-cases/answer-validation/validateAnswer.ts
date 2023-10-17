@@ -14,6 +14,7 @@ export const validateAnswer =
     getState,
     { questionGateway }: { questionGateway: QuestionGateway },
   ) => {
+    if (getState().answerValidation) return;
     const validatedAnswer = await questionGateway.validateAnswer(
       getState().question!.id,
       answer,
