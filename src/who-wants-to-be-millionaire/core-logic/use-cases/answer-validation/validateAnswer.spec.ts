@@ -2,7 +2,7 @@ import { initReduxStore, ReduxStore } from "../../../store/reduxStore.ts";
 import { validateAnswer } from "./validateAnswer.ts";
 import { AppState, Question } from "../../../store/appState.ts";
 import { QuestionGatewayStub } from "../../../adapters/secondary/gateways/questionGatewayStub.ts";
-import { retrievedQuestion } from "../question-retrieval/retrieveQuestion.ts";
+import { retrievedQuestionAction } from "../question-retrieval/retrieveQuestion.ts";
 
 describe("Answer validation", () => {
   let questionGateway: QuestionGatewayStub;
@@ -17,7 +17,7 @@ describe("Answer validation", () => {
 
   it("should validate an answer", async () => {
     // GIVEN
-    store.dispatch(retrievedQuestion(aQuestion));
+    store.dispatch(retrievedQuestionAction(aQuestion));
     initialState = store.getState();
     questionGateway.correctAnswer = { "123abc": "B" };
 

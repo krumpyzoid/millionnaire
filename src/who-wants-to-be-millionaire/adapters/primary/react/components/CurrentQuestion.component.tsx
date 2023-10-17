@@ -7,10 +7,12 @@ import { useEffect } from "react";
 import { retrieveQuestion } from "../../../../core-logic/use-cases/question-retrieval/retrieveQuestion.ts";
 import { AppDispatch } from "../../../../store/reduxStore.ts";
 import { AppState } from "../../../../store/appState.ts";
+import { selectPossibleAnswers } from "../selectors/possibleAnswers.selector.ts";
 
 export const CurrentQuestion = () => {
   const dispatch = useDispatch<AppDispatch>();
   const question = useSelector((state: AppState) => state.question);
+  const possibleAnswers = useSelector(selectPossibleAnswers);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +28,7 @@ export const CurrentQuestion = () => {
         <div>
           <Countdown />
           <QuestionTitle title={question.label} />
-          <PossibleAnswers answers={question.possibleAnswers} />
+          <PossibleAnswers data={possibleAnswers} />
         </div>
       )}
     </div>
