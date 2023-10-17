@@ -25,7 +25,7 @@ export const CurrentQuestion = () => {
       <img src={jfoucault} alt="Jean-Pierre Foucault" />
       <br />
       {question && (
-        <div>
+        <div data-testid="current-question-data-bloc">
           <Countdown />
           <QuestionTitle title={question.label} />
           <PossibleAnswers data={possibleAnswers} />
