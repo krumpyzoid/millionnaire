@@ -1,8 +1,8 @@
 import { AppThunk, ReduxStore } from "../../../store/reduxStore.ts";
-import { AnswerLetter } from "../question-retrieval/question.ts";
 import { QuestionGateway } from "../../gateways/questionGateway.ts";
 import { createAction } from "@reduxjs/toolkit";
 import { ValidatedAnswer } from "./validatedAnswer.ts";
+import { AnswerLetter } from "../../../store/appState.ts";
 
 export const answerValidatedAction =
   createAction<ValidatedAnswer>("answer/validated");

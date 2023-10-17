@@ -1,8 +1,7 @@
 import { retrieveQuestion } from "./retrieveQuestion.ts";
 import { QuestionGatewayStub } from "../../../adapters/secondary/gateways/questionGatewayStub.ts";
-import { Question } from "./question.ts";
 import { initReduxStore, ReduxStore } from "../../../store/reduxStore.ts";
-import { AppState } from "../../../store/appState.ts";
+import { AppState, Question } from "../../../store/appState.ts";
 
 describe("Question retrieval", () => {
   let questionGateway: QuestionGatewayStub;
@@ -16,8 +15,13 @@ describe("Question retrieval", () => {
   });
 
   it("should retrieve a new question", async () => {
+    // GIVEN
     questionGateway.question = aQuestion;
+
+    // WHEN
     await store.dispatch(retrieveQuestion());
+
+    // THEN
     expect(store.getState()).toEqual({
       ...initialState,
       question: aQuestion,

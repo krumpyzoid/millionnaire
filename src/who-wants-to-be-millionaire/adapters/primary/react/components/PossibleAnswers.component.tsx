@@ -1,11 +1,8 @@
 import { FC } from "react";
-import {
-  AnswerLetter,
-  Question,
-} from "./core-logic/use-cases/question-retrieval/question.ts";
-import { AppDispatch } from "./store/reduxStore.ts";
+import { AppDispatch } from "../../../../store/reduxStore.ts";
 import { useDispatch } from "react-redux";
-import { validateAnswer } from "./core-logic/use-cases/answer-validation/validateAnswer.ts";
+import { validateAnswer } from "../../../../core-logic/use-cases/answer-validation/validateAnswer.ts";
+import { AnswerLetter, Question } from "../../../../store/appState.ts";
 
 export type Props = {
   answers: Question["possibleAnswers"];

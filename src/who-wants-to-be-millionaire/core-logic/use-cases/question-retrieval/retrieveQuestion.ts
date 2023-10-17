@@ -1,7 +1,7 @@
 import { AppThunk, ReduxStore } from "../../../store/reduxStore.ts";
 import { QuestionGateway } from "../../gateways/questionGateway.ts";
 import { createAction } from "@reduxjs/toolkit";
-import { Question } from "./question.ts";
+import { Question } from "../../../store/appState.ts";
 
 export const retrievedQuestion = createAction<Question>("question/retrieved");
 

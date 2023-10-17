@@ -1,8 +1,3 @@
-import {
-  AnswerLetter,
-  Question,
-} from "../core-logic/use-cases/question-retrieval/question.ts";
-
 export interface AppState {
   question: Question | null;
   answerValidation: {
@@ -16,3 +11,12 @@ export type Pyramid = {
   ladder: number[];
   currentLevel: number;
 };
+
+export type Question = {
+  id: string;
+  label: string;
+  possibleAnswers: Record<AnswerLetter, AnswerLabel>;
+};
+
+export type AnswerLetter = "A" | "B" | "C" | "D";
+export type AnswerLabel = string;

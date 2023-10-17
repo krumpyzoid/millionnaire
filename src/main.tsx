@@ -7,7 +7,10 @@ import { QuestionGatewayStub } from "./who-wants-to-be-millionaire/adapters/seco
 import { Provider } from "react-redux";
 
 const questionGateway = new QuestionGatewayStub();
-const store = initReduxStore({ questionGateway });
+const store = initReduxStore({
+  dependencies: { questionGateway },
+  pyramidLadder: [0, 200, 500, 150000, 1000000],
+});
 
 questionGateway.question = {
   id: "1",

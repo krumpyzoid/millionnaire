@@ -1,7 +1,7 @@
 import "./App.css";
-import { CurrentQuestion } from "./who-wants-to-be-millionaire/CurrentQuestion.component.tsx";
-import { Jokers } from "./who-wants-to-be-millionaire/Jokers.component.tsx";
-import { Pyramid } from "./who-wants-to-be-millionaire/Pyramid.component.tsx";
+import { CurrentQuestion } from "./who-wants-to-be-millionaire/adapters/primary/react/components/CurrentQuestion.component.tsx";
+import { Jokers } from "./who-wants-to-be-millionaire/adapters/primary/react/components/Jokers.component.tsx";
+import { Pyramid } from "./who-wants-to-be-millionaire/adapters/primary/react/components/Pyramid.component.tsx";
 
 function App() {
   return (

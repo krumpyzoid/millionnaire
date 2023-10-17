@@ -1,9 +1,6 @@
 import { QuestionGateway } from "../../../core-logic/gateways/questionGateway.ts";
-import {
-  AnswerLetter,
-  Question,
-} from "../../../core-logic/use-cases/question-retrieval/question.ts";
 import { ValidatedAnswer } from "../../../core-logic/use-cases/answer-validation/validatedAnswer.ts";
+import { AnswerLetter, Question } from "../../../store/appState.ts";
 
 export class QuestionGatewayStub implements QuestionGateway {
   private _question: Question | null = null;

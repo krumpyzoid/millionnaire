@@ -24,6 +24,7 @@ export const initReduxStore = (options: {
     ...options,
     pyramidLadder: options.pyramidLadder || [0, 200, 500, 3000],
   };
+
   return configureStore({
     reducer: {
       question: questionReducer,
