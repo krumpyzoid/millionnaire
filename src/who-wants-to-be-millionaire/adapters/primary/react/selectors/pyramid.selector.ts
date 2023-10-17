@@ -5,4 +5,12 @@ export type PyramidVM = {
   currentLevel: number;
 };
 
-export const selectPyramidSelector = (state: AppState): PyramidVM => {};
+export const selectPyramid = (state: AppState): PyramidVM => {
+  const pyramidLadderLength = state.pyramid.ladder.length - 1;
+  return {
+    ladder: [...state.pyramid.ladder]
+      .reverse()
+      .map((s) => s.toLocaleString("fr-FR")),
+    currentLevel: pyramidLadderLength - state.pyramid.currentLevel,
+  };
+};
