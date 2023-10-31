@@ -5,19 +5,28 @@ import { ValidatedAnswer } from "./validatedAnswer.ts";
 import { AnswerLetter } from "../../../store/appState.ts";
 
 export const answerValidatedAction =
-  createAction<ValidatedAnswer>("answer/validated");
+	createAction<ValidatedAnswer>("answer/validated");
 
 export const validateAnswer =
-  (answer: AnswerLetter): AppThunk<Promise<void>> =>
-  async (
-    dispatch: ReduxStore["dispatch"],
-    getState,
-    { questionGateway }: { questionGateway: QuestionGateway },
-  ) => {
-    if (getState().answerValidation) return;
-    const validatedAnswer = await questionGateway.validateAnswer(
-      getState().question!.id,
-      answer,
-    );
-    dispatch(answerValidatedAction(validatedAnswer));
-  };
+	(answer: AnswerLetter): AppThunk<Promise<void>> =>
+	async (
+		dispatch: ReduxStore["dispatch"],
+		getState,
+		{ questionGateway }: { questionGateway: QuestionGateway }
+	) => {
+		const answerAlreadyValidated = !!getState().answerValidation;
+		const answerIsDisabled =
+			getState().question?.id === getState().removedAnswers?.questionId &&
+			getState().removedAnswers?.removedAnswers.includes(answer);
+
+		if (answerAlreadyValidated || answerIsDisabled) return;
+
+		dispatch(
+			answerValidatedAction(
+				await questionGateway.validateAnswer(
+					getState().question!.id,
+					answer
+				)
+			)
+		);
+	};

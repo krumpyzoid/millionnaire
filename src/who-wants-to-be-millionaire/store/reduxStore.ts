@@ -1,10 +1,10 @@
 import {
-  Action,
-  AnyAction,
-  configureStore,
-  Store,
-  ThunkAction,
-  ThunkDispatch,
+	Action,
+	AnyAction,
+	configureStore,
+	Store,
+	ThunkAction,
+	ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { AppState, Pyramid } from "./appState";
 import { questionReducer } from "../core-logic/reducers/question.reducer.ts";
@@ -12,51 +12,53 @@ import { validatedAnswerReducer } from "../core-logic/reducers/validatedAnswer.r
 import { QuestionGateway } from "../core-logic/gateways/questionGateway.ts";
 import { pyramidReducer } from "../core-logic/reducers/pyramid.reducer.ts";
 import { nextQuestionRetrieval } from "../core-logic/use-cases/next-question-retrieval/nextQuestionRetrieval.ts";
+import { removedAnswersReducer } from "../core-logic/reducers/removedAnswers.reducer.ts";
 
 export interface Dependencies {
-  questionGateway: QuestionGateway;
+	questionGateway: QuestionGateway;
 }
 
 export const initReduxStore = (options: {
-  pyramidLadder?: Pyramid["ladder"];
-  dependencies?: Dependencies;
-  enableListeners?: boolean;
+	pyramidLadder?: Pyramid["ladder"];
+	dependencies?: Dependencies;
+	enableListeners?: boolean;
 }) => {
-  const mergeOptions = {
-    ...options,
-    enableListeners: options.enableListeners ?? false,
-    pyramidLadder: options.pyramidLadder || [0, 200, 500, 3000],
-  };
+	const mergeOptions = {
+		...options,
+		enableListeners: options.enableListeners ?? false,
+		pyramidLadder: options.pyramidLadder || [0, 200, 500, 3000],
+	};
 
-  return configureStore({
-    reducer: {
-      question: questionReducer,
-      answerValidation: validatedAnswerReducer,
-      pyramid: pyramidReducer(mergeOptions.pyramidLadder),
-    },
-    middleware: (getDefaultMiddleware) => {
-      const middleware = getDefaultMiddleware({
-        thunk: {
-          extraArgument: mergeOptions.dependencies,
-        },
-      });
-      if (mergeOptions.enableListeners)
-        return middleware.prepend(nextQuestionRetrieval.middleware);
-      return middleware;
-    },
-    devTools: true,
-  });
+	return configureStore({
+		reducer: {
+			question: questionReducer,
+			answerValidation: validatedAnswerReducer,
+			pyramid: pyramidReducer(mergeOptions.pyramidLadder),
+			removedAnswers: removedAnswersReducer,
+		},
+		middleware: (getDefaultMiddleware) => {
+			const middleware = getDefaultMiddleware({
+				thunk: {
+					extraArgument: mergeOptions.dependencies,
+				},
+			});
+			if (mergeOptions.enableListeners)
+				return middleware.prepend(nextQuestionRetrieval.middleware);
+			return middleware;
+		},
+		devTools: true,
+	});
 };
 
 export type ReduxStore = Store<AppState> & {
-  dispatch: ThunkDispatch<AppState, Dependencies, Action>;
+	dispatch: ThunkDispatch<AppState, Dependencies, Action>;
 };
 
 export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppState,
-  Dependencies,
-  AnyAction
+	ReturnType,
+	AppState,
+	Dependencies,
+	AnyAction
 >;
 
 export type AppDispatch = ThunkDispatch<AppState, Dependencies, Action>;
